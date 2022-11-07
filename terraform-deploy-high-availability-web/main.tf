@@ -13,7 +13,7 @@ terraform {
 
 # Defined aws region 
 provider "aws" {
-  region =   "us-east-1"
+  region = "us-east-1"
 
 }
 
@@ -36,8 +36,8 @@ resource "aws_internet_gateway" "High_availability_gw" {
 
 ## Create public  subnets (1)
 resource "aws_subnet" "Public_subnet_1" {
-  vpc_id = aws_vpc.High_availability_vpc.id
-  cidr_block = var.public_subnets_cidr_blocks[0]
+  vpc_id            = aws_vpc.High_availability_vpc.id
+  cidr_block        = var.public_subnets_cidr_blocks[0]
   availability_zone = var.east_Availability_Zones[0]
   tags = {
     "name" = "Public subnet_1"
@@ -47,8 +47,8 @@ resource "aws_subnet" "Public_subnet_1" {
 
 ## Create public  subnets (2)
 resource "aws_subnet" "Public_subnet_2" {
-  vpc_id = aws_vpc.High_availability_vpc.id
-  cidr_block = var.public_subnets_cidr_blocks[1]
+  vpc_id            = aws_vpc.High_availability_vpc.id
+  cidr_block        = var.public_subnets_cidr_blocks[1]
   availability_zone = var.east_Availability_Zones[1]
   tags = {
     "name" = "Public subnet_2"
@@ -58,8 +58,8 @@ resource "aws_subnet" "Public_subnet_2" {
 
 ## Create Privet  subnets (1)
 resource "aws_subnet" "Privet_subnet_1" {
-  vpc_id = aws_vpc.High_availability_vpc.id
-  cidr_block = var.Privet_subnets_cidr_blocks[0]
+  vpc_id            = aws_vpc.High_availability_vpc.id
+  cidr_block        = var.Privet_subnets_cidr_blocks[0]
   availability_zone = var.east_Availability_Zones[0]
   tags = {
     "name" = "Privet_subnet_1 "
@@ -69,8 +69,8 @@ resource "aws_subnet" "Privet_subnet_1" {
 
 ## Create Privet  subnets (2)
 resource "aws_subnet" "Privet_subnet_2" {
-  vpc_id = aws_vpc.High_availability_vpc.id
-  cidr_block = var.Privet_subnets_cidr_blocks[1]
+  vpc_id            = aws_vpc.High_availability_vpc.id
+  cidr_block        = var.Privet_subnets_cidr_blocks[1]
   availability_zone = var.east_Availability_Zones[1]
   tags = {
     "name" = "Privet_subnet_2"
@@ -102,10 +102,10 @@ resource "aws_nat_gateway" "Nat_gateway_public_subnet_1" {
 
 ## Create Nate gateway with Elastic_ip For Public subnet (2)
 resource "aws_eip" "Elastic_ip_for_Public_subnet_2" {
-  vpc = true
+  vpc                       = true
   associate_with_private_ip = "10.0.1.12"
   depends_on                = [aws_internet_gateway.High_availability_gw]
-    tags = {
+  tags = {
     "name" = "Elastic_ip_for_Public_subnet_2"
   }
 }
@@ -122,4 +122,85 @@ resource "aws_nat_gateway" "Nat_gateway_public_subnet_2" {
   depends_on = [aws_internet_gateway.High_availability_gw]
 }
 
+
+
+# Create Route Table resource with routes defined in-line for public subnets
+resource "aws_route_table" "route_table_public_subnet_1" {
+  vpc_id = aws_vpc.High_availability_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.High_availability_gw.id
+  }
+
+
+  tags = {
+    Name = "public_route_public_subnet_1"
+  }
+}
+
+resource "aws_route_table_association" "public_route_subnet_1" {
+  subnet_id      = aws_subnet.Public_subnet_1.id
+  route_table_id = aws_route_table.route_table_public_subnet_1.id
+}
+
+resource "aws_route_table" "route_table_public_subnet_2" {
+  vpc_id = aws_vpc.High_availability_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.High_availability_gw.id
+  }
+
+
+  tags = {
+    Name = "public_route_subnet_2"
+  }
+}
+
+resource "aws_route_table_association" "public_route_subnet_2" {
+  subnet_id      = aws_subnet.Public_subnet_2.id
+  route_table_id = aws_route_table.route_table_public_subnet_2.id
+}
+
+# # Create Route Table resource with routes defined in-line for privet subnets
+
+resource "aws_route_table" "route_table_privet_subnet_1" {
+  vpc_id = aws_vpc.High_availability_vpc.id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.Nat_gateway_public_subnet_1.id
+  }
+
+
+  tags = {
+    Name = "privet_route_subnet_1"
+  }
+}
+
+resource "aws_route_table_association" "privet_route_subnet_1" {
+  subnet_id      = aws_subnet.Privet_subnet_1.id
+  route_table_id = aws_route_table.route_table_privet_subnet_1.id
+}
+
+
+resource "aws_route_table" "route_table_privet_subnet_2" {
+  vpc_id = aws_vpc.High_availability_vpc.id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.Nat_gateway_public_subnet_2.id
+  }
+
+
+  tags = {
+    Name = "privet_route_subnet_2"
+  }
+}
+
+resource "aws_route_table_association" "privet_route_subnet_2" {
+  subnet_id      = aws_subnet.Privet_subnet_2.id
+  route_table_id = aws_route_table.route_table_privet_subnet_2.id
+}
 #----------------------------------------------------------------------------
