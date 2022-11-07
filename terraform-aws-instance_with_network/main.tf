@@ -1,6 +1,7 @@
-# terraform Script for lannch IAC then deploy e-commerce_app 
 
+# terraform Script for launch IAC then deploy e-commerce_app 
 
+# Define Providers
 terraform {
   required_providers {
     aws = {
@@ -142,6 +143,6 @@ resource "aws_instance" "web-server" {
   user_data =  "${file("Deploy_commerce_app.sh")}" 
  
   tags = {
-    Name = "web-server"
+    Name = "web-server_v1"
   }
 }
