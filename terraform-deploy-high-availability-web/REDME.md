@@ -2,4 +2,4 @@
 
 - ##### 
 
-![plot](https://raw.githubusercontent.com/hossamalsankary/-Deploy-Infrastructure-as-Code-/main/images/Team%20document.png)
+![plot](https://github.com/udacity/nd9991-c2-Infrastructure-as-Code-v1/blob/master/supporting_material/AWSWebApp.jpeg)
