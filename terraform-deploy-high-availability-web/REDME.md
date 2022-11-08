@@ -20,7 +20,7 @@
 
 
 
-- ##### Creating   VPC 
+# Creating   VPC 
 ```diff 
 resource "aws_vpc" "High_availability_vpc" {
   cidr_block = var.vpc_cidr_block
@@ -33,7 +33,7 @@ resource "aws_vpc" "High_availability_vpc" {
 ```
  <img src="/images/1.png" alt="Permissions" width="400"  />
 
-- ##### Crate internet getaway
+# Crate internet getaway
 
 ```diff 
 
@@ -48,7 +48,7 @@ resource "aws_internet_gateway" "High_availability_gw" {
  <img src="/images/2.png"  width="400"  />
 
 
-- ##### Create public  subnets (1)
+# Create public  subnets (1)
 ```diff 
 
 resource "aws_subnet" "Public_subnet_1" {
@@ -62,7 +62,7 @@ resource "aws_subnet" "Public_subnet_1" {
 }
 
 ```
-- ##### Create public  subnets (2)
+ # Create public  subnets (2)
 ```diff 
 
 resource "aws_subnet" "Public_subnet_2" {
@@ -75,7 +75,7 @@ resource "aws_subnet" "Public_subnet_2" {
 }
 
 ```
-- ##### Create Privet  subnets (1)
+# Create Privet  subnets (1)
 ```diff 
 resource "aws_subnet" "Privet_subnet_1" {
   vpc_id            = aws_vpc.High_availability_vpc.id
@@ -88,7 +88,7 @@ resource "aws_subnet" "Privet_subnet_1" {
 }
 
 ```
-- ##### Create Privet  subnets (2)
+ # Create Privet  subnets (2)
 ```diff 
 resource "aws_subnet" "Privet_subnet_2" {
   vpc_id            = aws_vpc.High_availability_vpc.id
@@ -102,7 +102,7 @@ resource "aws_subnet" "Privet_subnet_2" {
 ```
  <img src="/images/3.png"  width="400"  />
 
-- ##### Create Nate gateway with Elastic_ip For Public subnet (1)
+ # Create Nate gateway with Elastic_ip For Public subnet (1)
 ```diff 
 resource "aws_eip" "Elastic_ip_for_Public_subnet_1" {
   vpc = true
@@ -127,7 +127,7 @@ resource "aws_nat_gateway" "Nat_gateway_public_subnet_1" {
 
 
 ```
-- ##### Create Nate gateway with Elastic_ip For Public subnet (2)
+ # Create Nate gateway with Elastic_ip For Public subnet (2)
 ``` diff 
 
 resource "aws_eip" "Elastic_ip_for_Public_subnet_2" {
@@ -154,7 +154,7 @@ resource "aws_nat_gateway" "Nat_gateway_public_subnet_2" {
 ```
  <img src="/images/4.png"  width="400"  />
 
-- ##### Create Route Table resource with routes defined in-line for public subnets
+ ## Create Route Table resource with routes defined in-line for public subnets
 
 ```diff 
 - ###### Route Table for  public subnet (1)
@@ -199,7 +199,7 @@ resource "aws_route_table_association" "public_route_subnet_2" {
 }
 
 ```
-- ##### Create Route Table resource with routes defined in-line for privet subnets
+ ## Create Route Table resource with routes defined in-line for privet subnets
 ```diff
 - ###### Route Table for  privet subnet (1)
 
