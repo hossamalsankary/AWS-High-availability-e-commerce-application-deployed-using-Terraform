@@ -293,6 +293,8 @@ resource "aws_security_group" "allow_web" {
 }
 
 ```
+  <img src="/images/9.png"  width="600"  />
+
 ## Creating Security Group for LB
 ```diff 
 resource "aws_security_group" "ELB" {
