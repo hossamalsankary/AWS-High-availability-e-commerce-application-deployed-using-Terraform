@@ -1,5 +1,7 @@
-# Content 
 
+ <img src="https://github.com/udacity/nd9991-c2-Infrastructure-as-Code-v1/blob/master/supporting_material/AWSWebApp.jpeg" alt="Permissions" width="200" align="right" />
+
+# Content 
 - ##### Creating   VPC 
 - ##### Crate internet getaway
 - ##### Create public  subnets (1)
@@ -16,7 +18,7 @@
 - #####  Autoscaling group 
 
 
-![plot](https://github.com/udacity/nd9991-c2-Infrastructure-as-Code-v1/blob/master/supporting_material/AWSWebApp.jpeg)
+
 
 - ##### Creating   VPC 
 ```diff 
@@ -26,6 +28,8 @@ resource "aws_vpc" "High_availability_vpc" {
     "name" = "High_availability_VPC"
   }
 }
+
+ <img src="https://github.com/udacity/nd9991-c2-Infrastructure-as-Code-v1/blob/master/supporting_material/AWSWebApp.jpeg" alt="Permissions" width="200" align="right" />
 ```
 - ##### Crate internet getaway
 - ##### Create public  subnets (1)
