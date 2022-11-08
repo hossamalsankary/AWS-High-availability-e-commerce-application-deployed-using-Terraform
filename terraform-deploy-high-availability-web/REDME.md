@@ -1,27 +1,30 @@
-**
-# Content 
-- ##### Creating   VPC 
-- ##### Crate internet getaway
-- ##### Create public  subnets (1)
-- ##### Create public  subnets (2)
-- ##### Create Privet  subnets (1)
-- ##### Create Privet  subnets (2)
-- ##### Create Nate gateway with Elastic_ip For Public subnet (1)
-- ##### Create Nate gateway with Elastic_ip For Public subnet (2)
-- ##### Create Route Table resource with routes defined in-line for public subnets
-- ##### Create Route Table resource with routes defined in-line for privet subnets
-- ##### Creating Security Group for ELB
-- #####  Create load balancer 
-- #####  launch configuration
-- #####  Autoscaling group 
-- #####  Autoscaling group 
+
+# Deploy Infrastructure as Code using Terraform  
+## Content 
+- ##### [Creating   VPC ]()
+- ##### [Crate internet getaway]()
+- ##### [Create public  subnets (1)]()
+- ##### [Create public  subnets (2)]()
+- ##### [Create Privet  subnets (1)]()
+- ##### [Create Privet  subnets (2)]()
+- ##### [Create Nate gateway with Elastic_ip For Public subnet (1)]()
+- ##### [Create Nate gateway with Elastic_ip For Public subnet (2)]()
+- ##### [Create Route Table resource with routes defined in-line for public subnets]()
+- ##### [Create Route Table resource with routes defined in-line for privet subnets]()
+- ##### [Creating Security Group for ELB]()
+- ##### [ Create load balancer ]()
+- #####  [launch configuration]()
+- ##### [ Autoscaling group ]()
+- ##### [ Autoscaling group ]()
+
+### Deploy Infrastructure as Code we will deploy a dummy  web store application (This is a sample e-commerce application built for learning purposes.) to the Apache Web Server running on an EC2 instance. [app src ](https://github.com/kodekloudhub/learning-app-ecommerce)
 
 
  <img src="https://github.com/udacity/nd9991-c2-Infrastructure-as-Code-v1/blob/master/supporting_material/AWSWebApp.jpeg" alt="Permissions" align="right" />
 
 
 
-# Creating   VPC 
+## Creating   VPC 
 ```diff 
 resource "aws_vpc" "High_availability_vpc" {
   cidr_block = var.vpc_cidr_block
@@ -32,9 +35,9 @@ resource "aws_vpc" "High_availability_vpc" {
 
 
 ```
- <img src="/images/1.png" alt="Permissions" width="400"  />
+ <img src="/images/1.png" alt="Permissions" width="600"  />
 
-# Crate internet getaway
+## Crate internet getaway
 
 ```diff 
 
@@ -46,10 +49,10 @@ resource "aws_internet_gateway" "High_availability_gw" {
 }
 
 ```
- <img src="/images/2.png"  width="400"  />
+ <img src="/images/2.png"  width="600"  />
 
 
-# Create public  subnets (1)
+## Create public  subnets (1)
 ```diff 
 
 resource "aws_subnet" "Public_subnet_1" {
@@ -63,7 +66,7 @@ resource "aws_subnet" "Public_subnet_1" {
 }
 
 ```
- # Create public  subnets (2)
+ ## Create public  subnets (2)
 ```diff 
 
 resource "aws_subnet" "Public_subnet_2" {
@@ -76,7 +79,7 @@ resource "aws_subnet" "Public_subnet_2" {
 }
 
 ```
-# Create Privet  subnets (1)
+## Create Privet  subnets (1)
 ```diff 
 resource "aws_subnet" "Privet_subnet_1" {
   vpc_id            = aws_vpc.High_availability_vpc.id
@@ -89,7 +92,7 @@ resource "aws_subnet" "Privet_subnet_1" {
 }
 
 ```
- # Create Privet  subnets (2)
+ ## Create Privet  subnets (2)
 ```diff 
 resource "aws_subnet" "Privet_subnet_2" {
   vpc_id            = aws_vpc.High_availability_vpc.id
@@ -101,9 +104,9 @@ resource "aws_subnet" "Privet_subnet_2" {
 }
 
 ```
- <img src="/images/3.png"  width="400"  />
+ <img src="/images/3.png"  width="600"  />
 
- # Create Nate gateway with Elastic_ip For Public subnet (1)
+ ## Create Nate gateway with Elastic_ip For Public subnet (1)
 ```diff 
 resource "aws_eip" "Elastic_ip_for_Public_subnet_1" {
   vpc = true
@@ -153,7 +156,7 @@ resource "aws_nat_gateway" "Nat_gateway_public_subnet_2" {
 }
 
 ```
- <img src="/images/4.png"  width="400"  />
+ <img src="/images/4.png"  width="600"  />
 
  ## Create Route Table resource with routes defined in-line for public subnets
 
@@ -245,7 +248,7 @@ resource "aws_route_table_association" "privet_route_subnet_2" {
 
  ```
 
-  <img src="/images/6.png"  width="400"  />
+  <img src="/images/6.png"  width="600"  />
 
 
 ## Creating Security Group for Web server
@@ -324,7 +327,7 @@ resource "aws_security_group" "ELB" {
   }
 }
 ```
-- #####  Create load balancer 
+##  Create load balancer 
 ```diff 
 resource "aws_elb" "web_elb" {
   name = "web-elb"
@@ -405,5 +408,4 @@ resource "aws_autoscaling_group" "web" {
   }
 
 ```
-  <img src="/images/7.png"  width="400"  />
-**
+  <img src="/images/7.png"  width="600"  />
