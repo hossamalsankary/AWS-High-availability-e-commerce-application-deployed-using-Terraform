@@ -1,6 +1,4 @@
 
- <img src="https://github.com/udacity/nd9991-c2-Infrastructure-as-Code-v1/blob/master/supporting_material/AWSWebApp.jpeg" alt="Permissions" width="200" align="right" />
-
 # Content 
 - ##### Creating   VPC 
 - ##### Crate internet getaway
@@ -18,6 +16,8 @@
 - #####  Autoscaling group 
 
 
+ <img src="https://github.com/udacity/nd9991-c2-Infrastructure-as-Code-v1/blob/master/supporting_material/AWSWebApp.jpeg" alt="Permissions" align="right" />
+
 
 
 - ##### Creating   VPC 
@@ -29,9 +29,25 @@ resource "aws_vpc" "High_availability_vpc" {
   }
 }
 
- <img src="https://github.com/udacity/nd9991-c2-Infrastructure-as-Code-v1/blob/master/supporting_material/AWSWebApp.jpeg" alt="Permissions" width="200" align="right" />
+
 ```
+ <img src="/images/1.png" alt="Permissions" width="200" align="right" />
+
 - ##### Crate internet getaway
+
+```diff 
+
+resource "aws_internet_gateway" "High_availability_gw" {
+  vpc_id = aws_vpc.High_availability_vpc.id
+  tags = {
+    "name" = "High_availability_gw"
+  }
+}
+
+```
+ <img src="/images/2.png" alt="Permissions" width="200" align="right" />
+
+
 - ##### Create public  subnets (1)
 - ##### Create public  subnets (2)
 - ##### Create Privet  subnets (1)
