@@ -290,7 +290,7 @@ resource "aws_elb" "web_elb" {
  health_check {
     healthy_threshold = 2
     unhealthy_threshold = 2
-    timeout = 3
+    timeout = 2
     interval = 30
     target = "HTTP:80/"
   }
@@ -308,7 +308,7 @@ resource "aws_launch_configuration" "web" {
   key_name               = "terraform"
    security_groups = [aws_security_group.allow_web.id]
 
-  associate_public_ip_address = true
+  # associate_public_ip_address = true
     user_data = file("Deploy_commerce_app.sh")
   
   lifecycle {
@@ -335,7 +335,7 @@ resource "aws_autoscaling_group" "web" {
   ]
   metrics_granularity = "1Minute"
   vpc_zone_identifier  = [
-    aws_subnet.Privet_subnet_1.id,
+  aws_subnet.Privet_subnet_1.id,
   aws_subnet.Privet_subnet_2.id,
   ]
   # Required to rdeploy without an outage.
@@ -350,6 +350,6 @@ resource "aws_autoscaling_group" "web" {
   }
 
 
-output "lbIP" {
+output "LB_IP" {
   value = aws_elb.web_elb.dns_name
 }
