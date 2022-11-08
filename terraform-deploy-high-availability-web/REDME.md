@@ -4,21 +4,20 @@
  <img src="https://github.com/udacity/nd9991-c2-Infrastructure-as-Code-v1/blob/master/supporting_material/AWSWebApp.jpeg" alt="Permissions" align="right" />
  
 ## Content 
-- ##### [Creating   VPC ]()
-- ##### [Crate internet getaway]()
-- ##### [Create public  subnets (1)]()
-- ##### [Create public  subnets (2)]()
-- ##### [Create Privet  subnets (1)]()
-- ##### [Create Privet  subnets (2)]()
-- ##### [Create Nate gateway with Elastic_ip For Public subnet (1)]()
-- ##### [Create Nate gateway with Elastic_ip For Public subnet (2)]()
-- ##### [Create Route Table resource with routes defined in-line for public subnets]()
-- ##### [Create Route Table resource with routes defined in-line for privet subnets]()
-- ##### [Creating Security Group for ELB]()
-- ##### [ Create load balancer ]()
-- #####  [launch configuration]()
-- ##### [ Autoscaling group ]()
-- ##### [ Autoscaling group ]()
+- ##### [Creating   VPC ](https://github.com/hossamalsankary/terraform-projects/blob/master/terraform-deploy-high-availability-web/REDME.md#creating---vpc)
+- ##### [Crate internet getaway](https://github.com/hossamalsankary/terraform-projects/blob/master/terraform-deploy-high-availability-web/REDME.md#crate-internet-getaway-1)
+- ##### [Create public  subnets (1)](https://github.com/hossamalsankary/terraform-projects/blob/master/terraform-deploy-high-availability-web/REDME.md#create-public--subnets-1-1)
+- ##### [Create public  subnets (2)](https://github.com/hossamalsankary/terraform-projects/blob/master/terraform-deploy-high-availability-web/REDME.md#create-public--subnets-1-1)
+- ##### [Create Privet  subnets (1)](https://github.com/hossamalsankary/terraform-projects/blob/master/terraform-deploy-high-availability-web/REDME.md#create-privet--subnets-1-1)
+- ##### [Create Privet  subnets (2)](https://github.com/hossamalsankary/terraform-projects/blob/master/terraform-deploy-high-availability-web/REDME.md#create-privet--subnets-1-1)
+- ##### [Create Nate gateway with Elastic_ip For Public subnet (1)]()https://github.com/hossamalsankary/terraform-projects/blob/master/terraform-deploy-high-availability-web/REDME.md#create-nate-gateway-with-elastic_ip-for-public-subnet-1-1
+- ##### [Create Nate gateway with Elastic_ip For Public subnet (2)](https://github.com/hossamalsankary/terraform-projects/blob/master/terraform-deploy-high-availability-web/REDME.md#create-nate-gateway-with-elastic_ip-for-public-subnet-2-1)
+- ##### [Create Route Table resource with routes defined in-line for public subnets](https://github.com/hossamalsankary/terraform-projects/blob/master/terraform-deploy-high-availability-web/REDME.md#create-route-table-resource-with-routes-defined-in-line-for-public-subnets-1)
+- ##### [Create Route Table resource with routes defined in-line for privet subnets](https://github.com/hossamalsankary/terraform-projects/blob/master/terraform-deploy-high-availability-web/REDME.md#create-route-table-resource-with-routes-defined-in-line-for-privet-subnets-1)
+- ##### [Creating Security Group for ELB](https://github.com/hossamalsankary/terraform-projects/blob/master/terraform-deploy-high-availability-web/REDME.md#creating-security-group-for-web-server)
+- ##### [ Create load balancer ](https://github.com/hossamalsankary/terraform-projects/blob/master/terraform-deploy-high-availability-web/REDME.md#create-load-balancer)
+- #####  [launch configuration](https://github.com/hossamalsankary/terraform-projects/blob/master/terraform-deploy-high-availability-web/REDME.md#launch-configuration-1)
+- ##### [ Autoscaling group ](https://github.com/hossamalsankary/terraform-projects/blob/master/terraform-deploy-high-availability-web/REDME.md#autoscaling-group)
 
 
 
@@ -133,7 +132,7 @@ resource "aws_nat_gateway" "Nat_gateway_public_subnet_1" {
 
 
 ```
- # Create Nate gateway with Elastic_ip For Public subnet (2)
+ ## Create Nate gateway with Elastic_ip For Public subnet (2)
 ``` diff 
 
 resource "aws_eip" "Elastic_ip_for_Public_subnet_2" {
