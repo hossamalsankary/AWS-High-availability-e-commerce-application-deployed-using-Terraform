@@ -1,6 +1,6 @@
 **
-# Deploy Infrastructure as Code using Terraform  
-####  Deploy Infrastructure as Code we will deploy a dummy  web store application (This is a sample e-commerce application built for learning purposes.) to the Apache Web Server running on an EC2 instance. [app_src ](https://github.com/kodekloudhub/learning-app-ecommerce)
+# **Deploy** Infrastructure as Code using Terraform  
+####  Deploy Infrastructure as Code we will deploy a dummy  web store application (This is a sample e-commerce application built for learning purposes.) to the Apache Web Server running on an EC2 instance. [e-commerce application ](https://github.com/kodekloudhub/learning-app-ecommerce)
  <img src="https://github.com/udacity/nd9991-c2-Infrastructure-as-Code-v1/blob/master/supporting_material/AWSWebApp.jpeg" alt="Permissions" align="right" />
  
 ## Content 
@@ -411,4 +411,16 @@ resource "aws_autoscaling_group" "web" {
 
 ```
   <img src="/images/7.png"  width="600"  />
+
+  ###  Really live **picturers** 
+  <img src="/images/10.png"  />
+    <img src="/images/11.png"  />
+  <img src="/images/12.png"  />
+  <img src="/images/13.png"  />
+  <img src="/images/14.png"  />
+  <img src="/images/15.png"  />
+  <img src="/images/16.png"  />
+
+
+
 **
