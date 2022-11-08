@@ -412,9 +412,9 @@ resource "aws_autoscaling_group" "web" {
 ```
   <img src="/images/7.png"  width="600"  />
 
-  ###  Really live **picturers** 
+  ###  Real live **picturers** 
   <img src="/images/10.png"  />
-    <img src="/images/11.png"  />
+  <img src="/images/11.png"  />
   <img src="/images/12.png"  />
   <img src="/images/13.png"  />
   <img src="/images/14.png"  />
@@ -424,3 +424,9 @@ resource "aws_autoscaling_group" "web" {
 
 
 **
+
+
+
+
+
+
