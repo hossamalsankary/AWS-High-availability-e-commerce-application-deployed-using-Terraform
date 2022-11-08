@@ -100,6 +100,8 @@ resource "aws_nat_gateway" "Nat_gateway_public_subnet_1" {
   depends_on = [aws_internet_gateway.High_availability_gw]
 }
 
+
+
 ## Create Nate gateway with Elastic_ip For Public subnet (2)
 resource "aws_eip" "Elastic_ip_for_Public_subnet_2" {
   vpc                       = true
@@ -204,3 +206,150 @@ resource "aws_route_table_association" "privet_route_subnet_2" {
   route_table_id = aws_route_table.route_table_privet_subnet_2.id
 }
 #----------------------------------------------------------------------------
+## create secretly groups
+resource "aws_security_group" "allow_web" {
+  name        = "allow_web traffic"
+  description = "Allow Web inbound traffic"
+  vpc_id      = aws_vpc.High_availability_vpc.id
+
+  ingress {
+    description = "HTTPS"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    description = "HTTP"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "allow_web"
+  }
+}
+
+# Creating Security Group for ELB
+resource "aws_security_group" "ELB" {
+  name        = "Demo Security Group"
+  description = "Demo Module"
+  vpc_id      = "${aws_vpc.High_availability_vpc.id}"# Inbound Rules
+  # HTTP access from anywhere
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }# HTTPS access from anywhere
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }# SSH access from anywhere
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }# Outbound Rules
+  # Internet access to anywhere
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_elb" "web_elb" {
+  name = "web-elb"
+  security_groups = [aws_security_group.ELB.id]
+  subnets = [
+  aws_subnet.Public_subnet_1.id,
+  aws_subnet.Public_subnet_2.id,
+  ]
+  cross_zone_load_balancing   = true
+ health_check {
+    healthy_threshold = 2
+    unhealthy_threshold = 2
+    timeout = 3
+    interval = 30
+    target = "HTTP:80/"
+  }
+
+  listener {
+    lb_port = 80
+    lb_protocol = "http"
+    instance_port = "80"
+    instance_protocol = "http"
+  }
+  }
+resource "aws_launch_configuration" "web" {
+  image_id               = "ami-08c40ec9ead489470"
+  instance_type          = "t2.micro"
+  key_name               = "terraform"
+   security_groups = [aws_security_group.allow_web.id]
+
+  associate_public_ip_address = true
+    user_data = file("Deploy_commerce_app.sh")
+  
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_autoscaling_group" "web" {
+  name = "${aws_launch_configuration.web.name}-asg"
+  min_size             = 2
+  desired_capacity     = 3
+  max_size             = 4
+  
+  health_check_type    = "ELB"
+  load_balancers = [aws_elb.web_elb.id]
+ 
+  launch_configuration = "${aws_launch_configuration.web.name}"
+  enabled_metrics = [
+    "GroupMinSize",
+    "GroupMaxSize",
+    "GroupDesiredCapacity",
+    "GroupInServiceInstances",
+    "GroupTotalInstances"
+  ]
+  metrics_granularity = "1Minute"
+  vpc_zone_identifier  = [
+    aws_subnet.Privet_subnet_1.id,
+  aws_subnet.Privet_subnet_2.id,
+  ]
+  # Required to rdeploy without an outage.
+  lifecycle {
+    create_before_destroy = true
+  }
+  tag {
+    key                 = "Name"
+    value               = "web"
+    propagate_at_launch = true
+  }
+  }
+
+
+output "lbIP" {
+  value = aws_elb.web_elb.dns_name
+}
