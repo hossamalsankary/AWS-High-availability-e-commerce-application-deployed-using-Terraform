@@ -1,5 +1,8 @@
 **
 # Deploy Infrastructure as Code using Terraform  
+####  Deploy Infrastructure as Code we will deploy a dummy  web store application (This is a sample e-commerce application built for learning purposes.) to the Apache Web Server running on an EC2 instance. [app_src ](https://github.com/kodekloudhub/learning-app-ecommerce)
+ <img src="https://github.com/udacity/nd9991-c2-Infrastructure-as-Code-v1/blob/master/supporting_material/AWSWebApp.jpeg" alt="Permissions" align="right" />
+ 
 ## Content 
 - ##### [Creating   VPC ]()
 - ##### [Crate internet getaway]()
@@ -17,10 +20,9 @@
 - ##### [ Autoscaling group ]()
 - ##### [ Autoscaling group ]()
 
-### Deploy Infrastructure as Code we will deploy a dummy  web store application (This is a sample e-commerce application built for learning purposes.) to the Apache Web Server running on an EC2 instance. [app src ](https://github.com/kodekloudhub/learning-app-ecommerce)
 
 
- <img src="https://github.com/udacity/nd9991-c2-Infrastructure-as-Code-v1/blob/master/supporting_material/AWSWebApp.jpeg" alt="Permissions" align="right" />
+
 
 
 
@@ -293,8 +295,6 @@ resource "aws_security_group" "allow_web" {
 }
 
 ```
-  <img src="/images/9.png"  width="600"  />
-
 ## Creating Security Group for LB
 ```diff 
 resource "aws_security_group" "ELB" {
