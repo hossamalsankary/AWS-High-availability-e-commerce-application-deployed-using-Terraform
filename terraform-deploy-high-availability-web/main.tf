@@ -279,6 +279,7 @@ resource "aws_security_group" "ELB" {
   }
 }
 
+# Create load balancer 
 resource "aws_elb" "web_elb" {
   name = "web-elb"
   security_groups = [aws_security_group.ELB.id]
@@ -316,6 +317,7 @@ resource "aws_launch_configuration" "web" {
   }
 }
 
+# Autoscaling group 
 resource "aws_autoscaling_group" "web" {
   name = "${aws_launch_configuration.web.name}-asg"
   min_size             = 2
@@ -338,7 +340,7 @@ resource "aws_autoscaling_group" "web" {
   aws_subnet.Privet_subnet_1.id,
   aws_subnet.Privet_subnet_2.id,
   ]
-  # Required to rdeploy without an outage.
+  # Required to deploy without an outage.
   lifecycle {
     create_before_destroy = true
   }
