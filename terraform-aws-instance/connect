@@ -1,0 +1,6 @@
+
+IP=$(terraform output server_ip | tr -d '"')
+FULLIP=$(echo ubuntu@$IP)
+echo $FULLIP
+echo rsync -av --progress -e "ssh -i ~/terraform.pem " ubuntu@$IP:~/cs50 .
+ssh -i "~/terraform.pem"  ubuntu@$IP

@@ -12,7 +12,7 @@ terraform {
   }
 }
 provider "aws" {
-  region =   "us-east-1"
+  region =   "eu-central-1"
 
 }
 # Resources 
@@ -59,12 +59,17 @@ resource "aws_security_group" "allow_web" {
 
 # aws EC2 instance 
 resource "aws_instance" "web-server-instance" {
- ami               = "ami-08c40ec9ead489470"
+ ami               = "ami-06dd92ecc74fdfb36"
   instance_type     = "t2.micro"
-  availability_zone = "us-east-1a"
   key_name          = "terraform"
  vpc_security_group_ids = [ aws_security_group.allow_web.id]
- 
+
+ebs_block_device {
+  device_name = "/dev/sda1"
+   volume_type = "gp2"
+   volume_size = 30
+   delete_on_termination = true
+  }
  #  we not provide any vpc here s this security group  going be deploying on default VPC
 
 #  bash script for automating deploying process
@@ -76,5 +81,5 @@ resource "aws_instance" "web-server-instance" {
   }
 }
 output "server_ip" {
-  value = aws_instance.web-server-instance.public_ip
+  value = aws_instance.web-server-instance.public_dns
 }
